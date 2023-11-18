@@ -3,7 +3,7 @@
 #include "led.h"
 #include "buzzer.h"
 
-static char switch_update_interrupt_sense()
+static char switch_update_interrupt_sense(void)
 {
   char p2val = P2IN;
   /* update switch interrupt to detect changes from current buttons */
@@ -12,7 +12,7 @@ static char switch_update_interrupt_sense()
   return p2val;
 }
 
-void switch_init()		/* setup switch */
+void switch_init(void)		/* setup switch */
 {
   P2REN |= SWITCHES;	/* enables resistors for switches */
   P2IE |= SWITCHES;		/* enable interrupts from switches */
@@ -23,7 +23,7 @@ void switch_init()		/* setup switch */
 }
 
 unsigned short n_switch_down = 0;
-void switch_interrupt_handler()
+void switch_interrupt_handler(void)
 {
   char p2val = switch_update_interrupt_sense();
   char n_switch = 1;

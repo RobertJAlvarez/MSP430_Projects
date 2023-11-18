@@ -10,7 +10,7 @@
 
 int switches;
 
-void switch_init(); // setup switch
-void wdt_c_handler();
+void switch_init(void); // setup switch
+void wdt_c_handler(void);
 
 #endif

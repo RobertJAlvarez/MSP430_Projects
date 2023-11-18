@@ -6,7 +6,7 @@
 /*
   Alternate led pattern functions
 */
-char toggle_red()		/* always toggle! */
+char toggle_red(void)		/* always toggle! */
 {
   static char state = 0;
 
@@ -23,7 +23,7 @@ char toggle_red()		/* always toggle! */
   return 1;			/* always changes a led */
 }
 
-char toggle_green()	/* only toggle green if red is on!  */
+char toggle_green(void)	/* only toggle green if red is on!  */
 {
   char changed = 0;
   if (red_on) {
@@ -33,7 +33,7 @@ char toggle_green()	/* only toggle green if red is on!  */
   return changed;
 }
 
-void altern_led_pattern()  /* alternate between toggling red & green */
+void altern_led_pattern(void)  /* alternate between toggling red & green */
 {
   char changed = 0;  
 
@@ -47,7 +47,7 @@ void altern_led_pattern()  /* alternate between toggling red & green */
   led_update();
 }
 
-void led_pattern_state_machine()
+void led_pattern_state_machine(void)
 {
   static char blink_count = 0;
   if (++blink_count >= 250) {
@@ -60,7 +60,7 @@ void led_pattern_state_machine()
   Dimming led pattern functions
 */
 static int blinkLimit = 0;    // state var representing reciprocal of duty cycle 
-void blinkUpdate()            // called every 1/250s to blink with duty cycle 1/blinkLimit
+void blinkUpdate(void)            // called every 1/250s to blink with duty cycle 1/blinkLimit
 {
   static int blinkCount = 0;  // state var representing blink state
   if (blinkCount++ >= blinkLimit) {
@@ -70,7 +70,7 @@ void blinkUpdate()            // called every 1/250s to blink with duty cycle 1/
     greenControl(0);
 }
 
-void oncePerSecond() // repeatedly start bright and gradually lower duty cycle, one step/sec
+void oncePerSecond(void) // repeatedly start bright and gradually lower duty cycle, one step/sec
 {
   static unsigned short period_inc = 1000;
 
@@ -84,7 +84,7 @@ void oncePerSecond() // repeatedly start bright and gradually lower duty cycle, 
   buzzer_set_period(curr_period);
 }
 
-void secondUpdate()  // called every 1/250 sec to call oncePerSecond once per second
+void secondUpdate(void)  // called every 1/250 sec to call oncePerSecond once per second
 {
   static int secondCount = 0; // state variable representing repeating time 0…1s
   if (secondCount++ >= 250) { // once each second
@@ -93,7 +93,7 @@ void secondUpdate()  // called every 1/250 sec to call oncePerSecond once per se
   }
 }
 
-void dimming_state_machines()
+void dimming_state_machines(void)
 {
   blinkUpdate();
   secondUpdate();
@@ -102,7 +102,7 @@ void dimming_state_machines()
 /*
   Go from a high to low frequency at different rates
 */
-void high_to_low_buzzer()
+void high_to_low_buzzer(void)
 {
   static int count = 0;
   static unsigned short period_inc = 500;
@@ -118,7 +118,7 @@ void high_to_low_buzzer()
 /*
   Turn leds off and stop buzzing
 */
-void off_leds_buzzer()
+void off_leds_buzzer(void)
 {
   led_off();
   buzzer_set_period(100);

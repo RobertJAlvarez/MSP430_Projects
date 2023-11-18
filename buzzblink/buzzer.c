@@ -2,7 +2,7 @@
 #include "libTimer.h"
 #include "buzzer.h"
 
-void buzzer_init()
+void buzzer_init(void)
 {
   /* 
     Direct timer A output "TA0.1" to P2.6.  

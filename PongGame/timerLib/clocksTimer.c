@@ -1,7 +1,8 @@
 #include <msp430.h>
 #include "libTimer.h"
 
-void configureClocks(){
+void configureClocks(void)
+{
   WDTCTL = WDTPW + WDTHOLD;//Disable Watchdog Timer
   BCSCTL1 = CALBC1_16MHZ;  // Set DCO to 16 Mhz
   DCOCTL = CALDCO_16MHZ;
@@ -12,7 +13,7 @@ void configureClocks(){
 
 // enable watchdog timer periodic interrupt
 // period = SMCLOCK/32k
-void enableWDTInterrupts()  
+void enableWDTInterrupts(void) 
 {
   WDTCTL = WDTPW |	   // passwd req'd.  Otherwise device resets
     WDTTMSEL |		     // watchdog interval mode 
@@ -21,7 +22,7 @@ void enableWDTInterrupts()
   IE1 |= WDTIE;		   // Enable watchdog interval timer interrupt
 }
 
-void timerAUpmode()
+void timerAUpmode(void)
 {
   TA0CCR0 = 0; 
   TA0CCR1 = 0; 

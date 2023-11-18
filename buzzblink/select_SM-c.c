@@ -2,7 +2,7 @@
 #include "stateMachines.h"
 #include "select_SM.h"
 
-void select_SM()
+void select_SM(void)
 {
   switch (n_switch_down) {
   case 1:   //Alternate between toggling red & green

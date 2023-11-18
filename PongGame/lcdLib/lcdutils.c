@@ -53,7 +53,8 @@ u_char _orientation = 0;
 #define GMCTRN1   0xE1
 
 /** Set up onboard LCD's SPI and control pins */
-static void setUpSPIforLCD() {
+static void setUpSPIforLCD(void)
+{
   LCD_DC_OUT |= LCD_DC_PIN;
   LCD_DC_DIR |= LCD_DC_PIN;
  
@@ -107,7 +108,8 @@ void _writeCommand(u_char command)
 }
 
 /** Long delay (private) */
-void _delay(u_char x10ms) {
+void _delay(u_char x10ms)
+{
   while (x10ms > 0) {
     __delay_cycles(160000);
     x10ms--;
@@ -131,7 +133,7 @@ void lcd_setArea(u_char colStart, u_char rowStart, u_char colEnd, u_char rowEnd)
 }
 
 /** Initialize onboard LCD */
-void lcd_init() 
+void lcd_init(void)
 {
   setUpSPIforLCD();
   _writeCommand(SWRESET);  /**< software reset */

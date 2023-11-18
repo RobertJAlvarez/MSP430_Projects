@@ -42,7 +42,7 @@ void change_red(void)
   red_on ^= 1;
 }
 
-void led_off()
+void led_off(void)
 {
   red_on = 0;
   green_on = 0;

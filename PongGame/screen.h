@@ -3,7 +3,7 @@
 
 extern short redrawScreen;
 
-void drawMiddleDashLine();
-void update_shape();
+void drawMiddleDashLine(void);
+void update_shape(void);
 
 #endif

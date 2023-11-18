@@ -34,7 +34,7 @@ extern const unsigned int font_11x16[95][11];
 #endif
 
 /** Initialize the onboard LCD */
-void lcd_init();
+void lcd_init(void);
 
 /** Set area to draw to
  *  

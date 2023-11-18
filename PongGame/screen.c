@@ -5,7 +5,7 @@
 #include "lcdutils.h"
 #include "lcddraw.h"
 
-void drawMiddleDashLine()
+void drawMiddleDashLine(void)
 {
   for (unsigned char colMin=0, rowMin=screenHeight/2; colMin < screenWidth; colMin+=4)
     fillRectangle(colMin, rowMin, 1, 1, COLOR_WHITE);
@@ -20,7 +20,7 @@ short barDrawPos[2] = {screenWidth/2, screenWidth/2}; // left bar on 0, right ba
 short barControlPos[2] = {1+screenWidth/2, 1+screenWidth/2};
 short barLim[2] = {5,screenWidth-8};  //bar is of size 5 and bar have shifts of 3
 
-void screen_update_bar()
+void screen_update_bar(void)
 {
   for (char bar = 0; bar < 2; bar++) 
     if (barDrawPos[bar] != barControlPos[bar]) // position changed?
@@ -35,7 +35,7 @@ void screen_update_bar()
   draw_bar(barDrawPos[1]-5, screenHeight-2, COLOR_WHITE); // draw right bar
 }
 
-void position_update_bar()
+void position_update_bar(void)
 {
   if (switches & SW1 && barControlPos[1] > barLim[0]) barControlPos[1] -= 3;
   if (switches & SW2 && barControlPos[1] < barLim[1]) barControlPos[1] += 3;
@@ -53,7 +53,7 @@ short ballControlPos[2] = {1+screenWidth/2, 1+screenHeight};   // Axis 0 for col
 short ballColVelocity = 1, ballColLim[2] = {1, screenWidth-3}; // -3 because of ball size
 short ballRowVelocity = 4, ballRowLim[2] = {1, screenHeight-3};// -3 because of ball size
 
-void screen_update_ball()
+void screen_update_ball(void)
 {
   for (char axis = 0; axis < 2; axis++) 
     if (ballDrawPos[axis] != ballControlPos[axis]) // position changed?
@@ -79,7 +79,7 @@ void bounce_ball(char at_bar)
 char score[2] = {'0','0'};
 char prev_score[2] = {'1','1'};
 
-void position_update_ball()
+void position_update_ball(void)
 {
   {   // move ball horizontally
     short oldCol = ballControlPos[0];
@@ -112,7 +112,7 @@ void position_update_ball()
 
 short redrawScreen = 1;
 
-void wdt_c_handler()
+void wdt_c_handler(void)
 {
   static int secCount = 0;
   if (++secCount >= 20) {		// 12.5/sec
@@ -123,7 +123,7 @@ void wdt_c_handler()
   }
 }
 
-void restart_game()
+void restart_game(void)
 {
   drawMiddleDashLine();
 
@@ -134,15 +134,15 @@ void restart_game()
   redrawScreen = 1;
 }
 
-void draw_score()
+void draw_score(void)
 {
   drawChar11x16(10, screenHeight/4, score[0], COLOR_WHITE, COLOR_BLACK);
   drawChar11x16(10, (3*screenHeight)/4, score[1], COLOR_WHITE, COLOR_BLACK);
 }
 
-void screen_update_score()
+void screen_update_score(void)
 {
-  for (char i=0; i<2; i++)
+  for (char i = 0; i < 2; ++i)
     if (prev_score[i] != score[i]) {
       restart_game();
       prev_score[i] = score[i];
@@ -151,7 +151,7 @@ void screen_update_score()
     }
 }
 
-void update_shape()
+void update_shape(void)
 {
   screen_update_score();
   if (score[0] > '5' || score[1] > '5') {

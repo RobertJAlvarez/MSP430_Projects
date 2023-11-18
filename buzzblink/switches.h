@@ -3,8 +3,8 @@
 
 #define SWITCHES 15	// All switches from 0-3
 
-void switch_init();
-void switch_interrupt_handler();
+void switch_init(void);
+void switch_interrupt_handler(void);
 
 extern unsigned short n_switch_down;
 

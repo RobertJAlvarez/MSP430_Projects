@@ -21,6 +21,7 @@ void main(void)
 
   clearScreen(COLOR_BLACK);
   drawMiddleDashLine();
+
   while (1) {     /* forever */
     if (redrawScreen) {
       redrawScreen = 0;

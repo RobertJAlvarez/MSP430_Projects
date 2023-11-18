@@ -2,7 +2,7 @@
 #include <libTimer.h>
 #include "switches.h"
 
-static char switch_update_interrupt_sense()
+static char switch_update_interrupt_sense(void)
 {
   char p2val = P2IN;
   /* update switch interrupt to detect changes from current buttons */
@@ -11,7 +11,7 @@ static char switch_update_interrupt_sense()
   return p2val;
 }
 
-void switch_init()      /* setup switch */
+void switch_init(void)      /* setup switch */
 {
   P2REN |= SWITCHES;    /* enables resistors for switches */
   P2IE |= SWITCHES;     /* enable interrupts from switches */
@@ -21,13 +21,14 @@ void switch_init()      /* setup switch */
 }
 
 int switches = 0;
-void switch_interrupt_handler()
+void switch_interrupt_handler(void)
 {
   char p2val = switch_update_interrupt_sense();
   switches = ~p2val & SWITCHES;
 }
 
-void __interrupt_vec(PORT2_VECTOR) Port_2(){
+void __interrupt_vec(PORT2_VECTOR) Port_2()
+{
   if (P2IFG & SWITCHES) {       /* did a button cause this interrupt? */
     P2IFG &= ~SWITCHES;         /* clear pending sw interrupts */
     switch_interrupt_handler(); /* single handler for all switches */
